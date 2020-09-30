@@ -17,7 +17,6 @@ const actions = {
     commit('setLanguages', ['en']);
   },
   async fetchCurrentLanguage({ commit }) {
-    console.log(1);
     commit('setCurrentLanguage', "en")
   }
 };
