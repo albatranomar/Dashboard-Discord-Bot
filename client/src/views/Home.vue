@@ -1,11 +1,15 @@
 <template>
-  <div class="home">
-    <h1>Welcome to Your Vue.js App</h1>
+  <div>
+    <h1>{{ user }}</h1>
+
+    <v-btn @click="login">login</v-btn>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data() {},
+  methods: {}
 };
 </script>

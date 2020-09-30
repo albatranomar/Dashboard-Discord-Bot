@@ -1,0 +1,19 @@
+{
+  "name": "dashboard-discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:server": "cd ./server && node server.js",
+    "start:client": "cd ./client && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albatranomar/Dashboard-Discord-Bot.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/albatranomar/Dashboard-Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/albatranomar/Dashboard-Discord-Bot#readme"
+}
