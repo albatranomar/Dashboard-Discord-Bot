@@ -1,8 +1,21 @@
 // import axios from 'axios';
 
 const state = {
-  languages: [],
-  current: "en"
+  languages: [
+    {
+      key: "en",
+      lang_name: "English",
+      flag_name: "us.png",
+      rtl: false
+    },
+    {
+      key: "ar",
+      lang_name: "Arabic",
+      flag_name: "sa.png",
+      rtl: true
+    },
+  ],
+  current: 0
 };
 
 const getters = {
@@ -16,8 +29,8 @@ const actions = {
 
     commit('setLanguages', ['en']);
   },
-  async fetchCurrentLanguage({ commit }) {
-    commit('setCurrentLanguage', "en")
+  async setCurrentLanguage({ commit }, i) {
+    commit('setCurrentLanguage', i)
   }
 };
 

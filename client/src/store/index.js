@@ -3,13 +3,15 @@ import Vuex from "vuex";
 
 import language from "./modules/language";
 import authUser from "./modules/authUser";
+import theme from "./modules/theme";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     language,
-    authUser
+    authUser,
+    theme
   },
   mutations: {
     init: (state, stor) => {
