@@ -13,6 +13,12 @@ export default {
           name: "About"
         }
       }
+    },
+    Footer: {
+      AllRightsReserved: "All rights reserved",
+      TermsOfUse: "Terms Of Use",
+      PrivacyPolicy: "Privacy Policy",
+      RefundPolicy: "Refund Policy"
     }
   }
 }
