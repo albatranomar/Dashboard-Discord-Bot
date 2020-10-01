@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Dashboard from "../views/Dashboard.vue";
+import DashboardAuth from "../views/DashboardAuth.vue";
 
 Vue.use(VueRouter);
 
@@ -20,6 +22,18 @@ const routes = [
     meta: {
       title: "About"
     }
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
+    meta: {
+      title: "Dashboard"
+    }
+  },
+  {
+    path: "/dashboard/auth",
+    component: DashboardAuth
   }
 ];
 

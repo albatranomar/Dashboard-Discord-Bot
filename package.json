@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/albatranomar/Dashboard-Discord-Bot/issues"
   },
-  "homepage": "https://github.com/albatranomar/Dashboard-Discord-Bot#readme"
+  "homepage": "https://github.com/albatranomar/Dashboard-Discord-Bot#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "cors": "^2.8.5"
+  }
 }
