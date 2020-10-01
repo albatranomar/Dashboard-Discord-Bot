@@ -2,29 +2,12 @@
   <v-app>
     <v-app-bar app center-active>
       <v-toolbar-title>
-        <span>Hi</span>
-        <span>Bot</span>
+        <span>{{ $vuetify.lang.t('$vuetify.App.Navbar.Logo.name') }}</span>
+        <span>{{ $vuetify.lang.t('$vuetify.App.Navbar.Logo.bot') }}</span>
       </v-toolbar-title>
       <v-spacer />
-      <!-- <router-link
-        v-for="route in routes"
-        :key="route.path"
-        :to="route.path"
-        exact
-        ><v-btn>{{ route.name }}</v-btn></router-link
-      > -->
-      <v-tab
-        v-for="route in routes"
-        :key="route.path"
-        :to="route.path"
-        exact
-        link
-        >{{ route.name }}</v-tab
-      >
-      <!-- <v-tab @click="toggleTheme">
-        <v-icon v-if="!$vuetify.theme.dark">mdi-brightness-3</v-icon>
-        <v-icon v-if="$vuetify.theme.dark">mdi-brightness-7 </v-icon>
-      </v-tab> -->
+      <v-tab to="/" exact link>{{ $vuetify.lang.t('$vuetify.App.Navbar.Pages.Home.name') }}</v-tab>
+      <v-tab to="/about" exact link>{{ $vuetify.lang.t('$vuetify.App.Navbar.Pages.About.name') }}</v-tab>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn v-bind="attrs" v-on="on">
@@ -82,27 +65,24 @@ export default {
   name: "App",
   data() {
     return {
-      routes: []
     };
   },
   methods: {
     changeLang(i) {
       this.$vuetify.rtl = this.$store.getters.allLanguages[i].rtl;
       this.$store.dispatch('setCurrentLanguage', i);
+      location.reload();
     },
     toggleTheme() {
-      // this.changeRTL();
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       this.$store.dispatch("toggleTheme", this.$vuetify.theme.dark);
     }
   },
   beforeMount() {
+    let currentLang = this.$store.state.language.languages[this.$store.state.language.current];
     this.$vuetify.theme.dark = this.$store.state.theme.dark;
-
-    this.routes = this.$router.options.routes.map(r => {
-      r.isActive = this.$router.history.current.name == r.name;
-      return r;
-    });
+    this.$vuetify.lang.current = currentLang.key;
+    this.$vuetify.rtl = currentLang.rtl;
   }
 };
 </script>
