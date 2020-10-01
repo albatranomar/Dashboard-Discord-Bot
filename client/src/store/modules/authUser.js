@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const state = {
   isLogedIn: false,
-  acat: null
+  acat: null,
+  user: {}
 };
 
 const getters = {
@@ -11,29 +12,41 @@ const getters = {
 };
 
 const actions = {
-  checkCurrentACAT() {
-    if (this.acat) {
-      axios.get(`http://localhost:9090/api/v1/users/${this.acat}`, {}).then((response) => {
-        console.log(response);
-      }).catch((err) => {
-        console.error(err);
-      })
-    } else {
-      location.href = `https://discord.com/api/oauth2/authorize?client_id=637579891000213525&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fdashboard%2Fauth&response_type=code&scope=identify%20guilds`;
-    }
+  checkCurrentACAT({ state }) {
+    return new Promise((res, rej) => {
+      if (state.acat) {
+        axios.get(`http://localhost:9090/api/v1/users/${state.acat}`).then((response) => {
+          res(response.data.isTruth || false);
+        }).catch((err) => {
+          console.error(err);
+          rej(err);
+        })
+      } else {
+        res(false);
+      }
+    });
   },
   newAccessCode(context, code) {
-    axios.post(`http://localhost:9090/api/v1/users`, { code }).then((response) => {
-        console.log(response);
+    return new Promise((res, rej) => {
+      axios.post(`http://localhost:9090/api/v1/users`, { code }).then((response) => {
+        if (response.statusText == "OK") {
+          context.commit("setIsLogedIn", true);
+          context.commit("setAcat", response.data.acat);
+          context.commit("setAuthUser", response.data);
+          res("OK")
+        };
       }).catch((err) => {
         console.error(err);
+        rej("NOT OK")
       })
+    })
   }
 };
 
 const mutations = {
   setIsLogedIn: (state, isIt) => state.isLogedIn = isIt,
   setAcat: (state, acat) => state.acat = acat,
+  setAuthUser: (state, userData) => state.user = userData,
 };
 
 export default {

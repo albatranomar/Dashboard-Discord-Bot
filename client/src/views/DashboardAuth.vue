@@ -13,7 +13,9 @@ export default {
   beforeMount() {
     let code = this.$route.query.code;
     if (code) {
-      this.$store.dispatch('newAccessCode', code);
+      this.$store.dispatch('newAccessCode', code).then(() => {
+        this.$router.push({ name: "Dashboard" });
+      });
     } else {
       this.$router.push({ name: "Home" });
     }

@@ -5,7 +5,9 @@ const axios = require("axios").default;
 const session = require('express-session');
 const path = require('path');
 const config = require('./config');
-const fetch = require("node-fetch");
+const hat = require("hat");
+
+let OAuthUsers = new Map();
 
 var whitelist = ['http://localhost:8080']
 var corsOptions = {
@@ -42,7 +44,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/v1/users/:acat', (req, res) => {
-  console.log(req.params);
+  let acat = req.params.acat;
+  if (acat && OAuthUsers.has(acat)) {
+    res.status(200).json({
+      message: "THIS USER ID IS EXISTS",
+      isTruth: true
+    });
+  } else {
+    res.status(200).json({
+      message: "THIS USER ID IS \"NOT\" EXISTS",
+      isTruth: false
+    });
+  }
 });
 
 app.post('/api/v1/users/', async (req, res) => {
@@ -67,10 +80,16 @@ app.post('/api/v1/users/', async (req, res) => {
         authorization: `${oauth2Data.data.token_type} ${oauth2Data.data.access_token}`,
       },
     })
-    res.json(infoData.data);
+    let ID = hat();
+    OAuthUsers.set(ID, oauth2Data.data.access_token);
+    res.json({...infoData.data, acat: ID});
   } catch (error) {
     if (error.isAxiosError) {
       console.log(error.response.data);
+      res.status(403).json(error.response.data);
+    } else {
+      console.error(error);
+      res.status(403).json({ message: "Something went wrong" });
     }
   }
 });
