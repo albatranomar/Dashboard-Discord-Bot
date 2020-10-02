@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:server": "cd ./server && node server.js",
-    "start:client": "cd ./client && npm run serve"
+    "server:dev": "cd ./server && nodemon server.js",
+    "client:dev": "cd ./client && npm run serve",
+    "server:pro": "cd ./server && node server.js",
+    "client:pro": "cd ./client && npm run build"
   },
   "repository": {
     "type": "git",
