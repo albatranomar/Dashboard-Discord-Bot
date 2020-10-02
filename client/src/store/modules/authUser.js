@@ -9,20 +9,28 @@ const state = {
 const getters = {
   isLogedIn: state => state.isLogedIn,
   acat: state => state.acat,
+  OAuthUser: state => state.user,
 };
 
 const actions = {
   checkCurrentACAT({ state }) {
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
       if (state.acat) {
         axios.get(`http://localhost:9090/api/v1/users/${state.acat}`).then((response) => {
-          res(response.data.isTruth || false);
+          res({
+            isIT: response.data.isTruth || false
+          });
         }).catch((err) => {
           console.error(err);
-          rej(err);
+          res({
+            isIT: false,
+            err: err
+          });
         })
       } else {
-        res(false);
+        res({
+          isIT: false,
+        });
       }
     });
   },
@@ -40,6 +48,11 @@ const actions = {
         rej("NOT OK")
       })
     })
+  },
+  getUserGuild() {
+    return new Promise(() => {
+
+    });
   }
 };
 
