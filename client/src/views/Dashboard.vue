@@ -1,6 +1,7 @@
 <template>
   <div>
     <app-o-draver-nav />
+
   </div>
 </template>
 
@@ -17,6 +18,9 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
+    
   },
   beforeMount() {
     this.$store.dispatch("checkCurrentACAT").then(({ isIT, err }) => {

@@ -49,9 +49,14 @@ const actions = {
       })
     })
   },
-  getUserGuild() {
-    return new Promise(() => {
-
+  getUserGuild({ state }) {
+    return new Promise((res) => {
+      axios.get(`http://localhost:9090/api/v1/users/${state.acat}/guilds`).then((guildsResponse) => {
+        res(guildsResponse.data.guilds);
+      }).catch(err => {
+        console.error(err);
+        res([]);
+      });
     });
   }
 };
